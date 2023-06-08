@@ -1,6 +1,6 @@
 import sqlalchemy
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, inspect
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base, relationship, Session
 
 Base = declarative_base()
 
@@ -47,3 +47,23 @@ inspector_engine = inspect(engine)
 print(inspector_engine.has_table("user_account"))
 print(inspector_engine.get_table_names())
 print(inspector_engine.default_schema_name)
+
+
+# persisting datas in database
+with Session(engine) as session:
+    weslley = User(
+        name='weslley',
+        fullname='Weslley Prado',
+        address=[Address(email_address='weslley.prado73@gmail.com')]
+    )
+    laisa = User(
+        name='laisa',
+        fullname='Laísa Prado',
+        address=[Address(email_address='weslley.prado73@gmail.com')]
+    )
+    prado = User(
+        name='prado',
+        fullname='S. Prado'
+    )
+
+    session.commit()
